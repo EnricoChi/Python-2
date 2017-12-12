@@ -2,6 +2,7 @@ from PyQt5.QtCore import QObject, pyqtSignal
 
 from e_temeplate_func.MyMessage import MyMessMessage
 from d_jim.my_jim_conf import MyJimOtherValue, MyJimActions, MyJimResponseCode, MyJimField
+from a_client.db.client_mg_model import MessageHistory
 
 
 class MyMessReceiver:
@@ -38,11 +39,11 @@ class MyMessReceiver:
                     print('Неверный код ответа от сервера')
             elif self.fields.ACTION in response:
                 if response[self.fields.ACTION] == self.actions.MSG:
-                        print('{} говорит --> {}'.format(
-                            response[self.jim_other.USER][self.jim_other.FROM],
-                            response[self.fields.MESSAGE])
-                        )
-                        self.process_message(response)
+                    print('{} говорит --> {}'.format(
+                        response[self.jim_other.USER][self.jim_other.FROM],
+                        response[self.fields.MESSAGE])
+                    )
+                    self.process_message(response)
                 elif response[self.fields.ACTION] == self.actions.RESPONSE:
                     self.sock_in_queue.put(response)
 
@@ -58,9 +59,11 @@ class MyGuiReceiver(MyMessReceiver, QObject):
         to_all = False
         text = message[self.fields.MESSAGE]
         user_from = message[self.jim_other.USER][self.jim_other.FROM]
+        user_to = message[self.jim_other.USER][self.jim_other.TO]
         message = dict(text=text, user=user_from)
+        history = MessageHistory()
+        history.db[user_to].insert_one(message)
         self.gotData.emit(message)
 
     def poll(self):
         super().poll()
-

@@ -9,6 +9,7 @@ import c_gui.mymess_form
 from a_client.client_main import MyMessClient
 from e_temeplate_func.MyReciver import MyGuiReceiver
 from e_temeplate_func.MyImageOperations import MyImageOperations
+from a_client.db.client_mg_model import MessageHistory
 
 
 class MyGui(QWidget):
@@ -49,6 +50,7 @@ class MyGui(QWidget):
 
         self.load_contacts()
         self.load_avatar()
+        self.load_history()
 
     # Первое окно, для ввода логина
     def login_input(self):
@@ -65,6 +67,13 @@ class MyGui(QWidget):
 
         for user in contact_list['message']:
             self.ui.listWidgetContants.addItem(user)
+
+    def load_history(self):
+        history = MessageHistory()
+        messages = history.db[self.name].find()
+        for message in messages:
+            print(message)
+            self.ui.textBrowserMessage.append(message['text'])
 
     def add_contact(self):
         username = self.ui.lineEditAddContact.text()
@@ -112,6 +121,10 @@ class MyGui(QWidget):
         data = self.ui.textAddMessage.toPlainText()
         self.client.send_message(self.user_to, data)
         self.ui.textAddMessage.clear()
+
+        history = MessageHistory()
+        table = dict(text=data, user=self.user_to, self=True)
+        history.db[self.name].insert_one(table)
 
         message = data
         self.ui.textBrowserMessage.append(message)
