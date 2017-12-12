@@ -1,9 +1,28 @@
-# Python-2
+# message_stacked_bucket
 
-Старт из корня через server.py и client.py.
+Client + Server application, chat, messenger, developed for educational purposes. Perhaps, someday it will be finished or remade.
+## Installation
 
-Через client.py запускается GUI. Умеет показывать список контактов, добавлять контакт, удалять контакт, отправлять сообщение.
+Installing from pypi (using pip):
 
-Чтобы создать второго юезера, нужно поменять name в client.py. Чтобы отослать ему сообщение, нужно добавить в контакты, выделить его имя в списке контактов и написать сообщение. Модальных окон нет, хочу допилить по другому.
+    pip install message-stacked-bucket
 
-Умеет подгружать и скалировать аватар. Сохраняет на клиенте в BLOB. На сервере сохраняет только имя файла.
+## Usage
+### First
+
+Start server in cmd from the application folder `...\Python36\Lib\site-packages\message stacked bucket>`
+
+    python server.py
+
+### Then
+
+Start one or more clients in cmd from the application folder `...\Python36\Lib\site-packages\message stacked bucket>`
+
+    python client.py
+
+## Dependence
+
+`Python 3` `PyQt5` `SQLAlchemy` `pillow`
+## Pypi pacage
+
+https://pypi.python.org/pypi/message-stacked-bucket
