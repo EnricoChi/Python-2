@@ -22,7 +22,7 @@ Start one or more clients in cmd from the application folder `...\Python36\Lib\s
 
 ## Dependence
 
-`Python 3` `PyQt5` `SQLAlchemy` `pillow`
+`Python 3` `PyQt5` `SQLAlchemy` `pillow` `pymongo`
 ## Pypi pacage
 
 https://pypi.python.org/pypi/message-stacked-bucket
