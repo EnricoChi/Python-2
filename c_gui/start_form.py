@@ -72,8 +72,9 @@ class MyGui(QWidget):
         history = MessageHistory()
         messages = history.db[self.name].find()
         for message in messages:
-            print(message)
-            self.ui.textBrowserMessage.append(message['text'])
+            self.messages = {message['user']: [message['text']]}
+            # print(message)
+            # self.ui.textBrowserMessage.append(message['text'])
 
     def add_contact(self):
         username = self.ui.lineEditAddContact.text()

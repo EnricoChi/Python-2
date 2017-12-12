@@ -59,10 +59,14 @@ class MyGuiReceiver(MyMessReceiver, QObject):
         to_all = False
         text = message[self.fields.MESSAGE]
         user_from = message[self.jim_other.USER][self.jim_other.FROM]
+
+        # Для записи сообщений в MongoDB при получении
         user_to = message[self.jim_other.USER][self.jim_other.TO]
         message = dict(text=text, user=user_from)
         history = MessageHistory()
         history.db[user_to].insert_one(message)
+
+        # Отправка сигнала
         self.gotData.emit(message)
 
     def poll(self):
