@@ -3,6 +3,7 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QApplication
 
 from c_gui.start_form import MyGui
+
 '''
 Главный скрипт для старта клиента
 '''
@@ -54,7 +55,8 @@ if __name__ == '__main__':
 
         except Exception as e:
             print(e)
+
+
     gui.listener.gotData.connect(update_chat)
 
     gui.start_gui()
-

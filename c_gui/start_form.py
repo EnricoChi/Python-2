@@ -72,9 +72,13 @@ class MyGui(QWidget):
         history = MessageHistory()
         messages = history.db[self.name].find()
         for message in messages:
-            self.messages = {message['user']: [message['text']]}
-            # print(message)
-            # self.ui.textBrowserMessage.append(message['text'])
+            text = message['text']
+            if 'self' not in message:
+                text = '{}: {}'.format(message['user'], text)
+
+            if message['user'] not in self.messages:
+                self.messages[message['user']] = []
+            self.messages[message['user']].extend([text])
 
     def add_contact(self):
         username = self.ui.lineEditAddContact.text()
